@@ -1,6 +1,6 @@
 import { dirname, resolve } from 'path'
 import { fileURLToPath } from 'url'
-import * as puppeteer from 'puppeteer'
+import * as puppeteer from 'puppeteer-core'
 import MarkdownIt from 'markdown-it'
 import markdownItAttrs from 'markdown-it-attrs'
 import markdownItContainer from 'markdown-it-container'
@@ -10,7 +10,10 @@ export const __dirname = dirname(__filename)
 
 export const pdfBuilder = async (options: { name?: string; margin?: number | Record<string, any> }) => {
   const { name, margin } = options
-  const browser = await puppeteer.launch({ headless: true })
+  const browser = await puppeteer.launch({
+    headless: true,
+    executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+  })
   const page = await browser.newPage()
   const url = 'file://' + resolve(__dirname, '../dist/index.html')
   await page.goto(url)

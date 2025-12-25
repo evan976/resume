@@ -15,7 +15,7 @@ export default function plugin(options: {
 
   return {
     name: 'build',
-    enforce: 'post',
+    enforce: 'post' as const,
 
     transformIndexHtml(html: string) {
       const md = createMarkdownIt(markdown)

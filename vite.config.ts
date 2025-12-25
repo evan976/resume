@@ -9,11 +9,18 @@ export default defineConfig({
       markdown: (md) => {
         md.use(markdownItImsize)
       },
-      pdfName: '前端开发_邬继华_社招_18006416535',
+      pdfName: '前端_邬继华_4年经验_13547964315',
       pdfMargin: 0,
-      webTitle: '前端开发_邬继华_社招_18006416535',
+      webTitle: '前端_邬继华_4年经验_13547964315',
     })
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern'
+      }
+    }
+  },
   build: {
     assetsDir: './'
   }
