@@ -43,6 +43,7 @@
       display: flex;
       flex-wrap: wrap;
       margin-top: 15px;
+      list-style-type: none;
 
       li {
         min-width: 33.333%;
@@ -80,13 +81,19 @@
 
   ul {
     margin: 10px 0;
+    padding-left: 1.2em;
+    list-style-type: disc;
+
     li {
-      padding-left: 1em;
+      margin-bottom: 8px;
       color: #888;
 
-      &::before {
-        content: '-';
-        margin-right: 10px;
+      &::marker {
+        color: #bbb;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
       }
     }
   }
