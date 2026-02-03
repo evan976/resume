@@ -11,9 +11,9 @@ export default defineConfig({
       markdown: (md) => {
         md.use(markdownItImsize)
       },
-      pdfName: '前端_邬继华_4年经验_13547964315',
+      pdfName: '前端_张三_3年经验',
       pdfMargin: 0,
-      webTitle: '前端_邬继华_4年经验_13547964315',
+      webTitle: '前端_张三_3年经验',
     })
   ],
   build: {

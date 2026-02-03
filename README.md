@@ -5,7 +5,7 @@ A minimal Markdown-based resume generator that outputs both HTML and PDF.
 ## Features
 
 - ✍️ Write your resume in Markdown
-- 🎨 Customizable styles with SCSS
+- 🎨 Customizable styles with TailwindCSS v4
 - 📄 Auto-generates PDF on build
 - ⚡ Hot reload during development
 - 🖨️ Print-friendly layout
@@ -13,9 +13,9 @@ A minimal Markdown-based resume generator that outputs both HTML and PDF.
 ## Tech Stack
 
 - **Vite** - Fast build tool
+- **TailwindCSS v4** - Utility-first CSS framework
 - **Markdown-it** - Markdown parser with plugins
 - **Puppeteer** - PDF generation
-- **SCSS** - Styling
 
 ## Getting Started
 
@@ -48,7 +48,7 @@ pnpm build
 ## Usage
 
 1. Edit your resume in `src/resume.md`
-2. Customize styles in `src/styles/`
+2. Customize styles in `src/styles/index.css`
 3. Configure output settings in `vite.config.ts`:
 
 ```typescript
@@ -63,13 +63,14 @@ markdownToResume({
 
 ```
 ├── src/
-│   ├── resume.md        # Your resume content
-│   └── styles/          # SCSS styles
+│   ├── resume.md          # Your resume content
+│   └── styles/
+│       └── index.css      # TailwindCSS styles
 ├── core/
-│   ├── index.ts         # PDF builder & Markdown config
-│   └── plugin.ts        # Vite plugin
-├── dist/                # Build output
-└── vite.config.ts       # Vite configuration
+│   ├── index.ts           # PDF builder & Markdown config
+│   └── plugin.ts          # Vite plugin
+├── dist/                  # Build output
+└── vite.config.ts         # Vite configuration
 ```
 
 ## License
