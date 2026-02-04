@@ -1,8 +1,12 @@
-# Vitae
+<p align="center">
+  <b style="font-size: 24px;">Vitae</b>
+</p>
 
-A minimal Markdown-based resume generator that outputs both HTML and PDF.
+<p align="center">
+  <b>A minimal Markdown-based resume generator that outputs both HTML and PDF.</b>
+</p>
 
-> *Vitae* - from Latin "Curriculum Vitae", also a nod to Vite.
+> _Vitae_ - from Latin "Curriculum Vitae", also a nod to Vite.
 
 ## Features
 
@@ -69,16 +73,16 @@ markdownToResume({
 
 8 built-in color themes are available:
 
-| Theme | Name | Description |
-|-------|------|-------------|
-| `ThemeName.Ocean` | Ocean Blue | Classic deep blue, professional and stable |
-| `ThemeName.Forest` | Forest Green | Natural and fresh green tones |
-| `ThemeName.Violet` | Elegant Violet | Sophisticated and mysterious purple tones |
-| `ThemeName.Sunset` | Sunset Orange | Warm and vibrant orange tones |
-| `ThemeName.Rose` | Rose Red | Elegant and soft rose tones |
-| `ThemeName.Midnight` | Midnight Black | Calm and restrained dark tones |
-| `ThemeName.Sky` | Sky Blue | Bright and refreshing light blue tones |
-| `ThemeName.Amber` | Amber Gold | Elegant and luxurious golden tones |
+| Theme                | Name           | Description                                |
+| -------------------- | -------------- | ------------------------------------------ |
+| `ThemeName.Ocean`    | Ocean Blue     | Classic deep blue, professional and stable |
+| `ThemeName.Forest`   | Forest Green   | Natural and fresh green tones              |
+| `ThemeName.Violet`   | Elegant Violet | Sophisticated and mysterious purple tones  |
+| `ThemeName.Sunset`   | Sunset Orange  | Warm and vibrant orange tones              |
+| `ThemeName.Rose`     | Rose Red       | Elegant and soft rose tones                |
+| `ThemeName.Midnight` | Midnight Black | Calm and restrained dark tones             |
+| `ThemeName.Sky`      | Sky Blue       | Bright and refreshing light blue tones     |
+| `ThemeName.Amber`    | Amber Gold     | Elegant and luxurious golden tones         |
 
 To change the theme, update the `theme` option in `vite.config.ts`:
 

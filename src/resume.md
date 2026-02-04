@@ -9,7 +9,7 @@
 - **年龄：** 25
 - **性别：** 男
 - **手机：** 138xxxx8888
-- **邮箱：** <example@email.com>
+- **邮箱：** example@email.com
 
 {.list}
 :::

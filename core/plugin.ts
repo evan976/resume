@@ -4,28 +4,29 @@ import { createFilter } from '@rollup/pluginutils'
 import { minify as minifyHtml } from 'html-minifier-terser'
 import { createMarkdownIt, pdfBuilder, __dirname } from './index'
 import MarkdownIt from 'markdown-it'
-import { getTheme, generateThemeCSS, defaultTheme, ThemeName } from './themes'
+import { Theme } from './themes'
 
 export interface PluginOptions {
   pdfName: string
   webTitle: string
   markdown: (md: MarkdownIt) => void
   pdfMargin: number | Record<string, any>
-  /** Theme to apply. See ThemeName enum for available options. */
-  theme?: ThemeName
+  /** Theme to apply */
+  theme?: Theme
 }
 
 export default function plugin(options: PluginOptions) {
-  const { pdfName, webTitle, markdown, pdfMargin, theme = defaultTheme } = options
-
-  const themeConfig = getTheme(theme)
-  const themeCSS = generateThemeCSS(themeConfig)
+  const { pdfName, webTitle, markdown, pdfMargin, theme = 'ocean' } = options
 
   return {
     name: 'build',
     enforce: 'post' as const,
 
-    transformIndexHtml(html: string) {
+    async transformIndexHtml(html: string) {
+      const { getTheme, generateThemeCSS } = await import('./themes')
+      const themeConfig = getTheme(theme)
+      const themeCSS = generateThemeCSS(themeConfig)
+
       const md = createMarkdownIt(markdown)
       const readme = fs.readFileSync(resolve(__dirname, '../src/resume.md')).toString()
 

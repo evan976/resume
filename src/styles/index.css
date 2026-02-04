@@ -3,6 +3,16 @@
 @theme {
   --font-sans: '阿里巴巴普惠体 2 55 Regular', '微软雅黑', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --width-a4: 210mm;
+
+  /* Theme colors - mapped from CSS custom properties */
+  --color-theme-primary: var(--theme-primary);
+  --color-theme-accent: var(--theme-accent);
+  --color-theme-text: var(--theme-text);
+  --color-theme-text-muted: var(--theme-text-muted);
+  --color-theme-border: var(--theme-border);
+  --color-theme-marker: var(--theme-marker);
+  --color-theme-bg-page: var(--theme-bg-page);
+  --color-theme-bg-content: var(--theme-bg-content);
 }
 
 /* Reset */
@@ -11,13 +21,11 @@
 }
 
 body {
-  @apply font-sans text-base leading-relaxed;
-  background-color: var(--theme-bg-page);
+  @apply font-sans text-base leading-relaxed bg-theme-bg-page;
 }
 
 h1, h2, h3, h4, h5, h6, b, strong, em {
-  @apply font-bold;
-  color: var(--theme-primary);
+  @apply font-bold text-theme-primary;
 }
 
 h1 {
@@ -33,8 +41,7 @@ h3 {
 }
 
 a {
-  @apply no-underline;
-  color: var(--theme-primary);
+  @apply no-underline text-theme-primary;
 }
 
 code {
@@ -43,15 +50,12 @@ code {
 
 /* Main container */
 .main {
-  @apply relative w-a4 mx-auto my-12 p-12 overflow-hidden shadow-[0_0_10px_5px_#fff];
-  background-color: var(--theme-bg-content);
-  color: var(--theme-text);
+  @apply relative w-a4 mx-auto my-12 p-12 overflow-hidden bg-theme-bg-content text-theme-text;
 }
 
 /* Basic info section */
 .basic-info {
-  @apply flex justify-between pb-8 border-b-3 border-dashed;
-  border-color: var(--theme-accent);
+  @apply flex justify-between pb-8 border-b-3 border-dashed border-theme-accent;
 
   .left {
     @apply mr-4 w-full text-base;
@@ -89,19 +93,17 @@ code {
   }
 
   p {
-    @apply my-2.5;
-    color: var(--theme-text-muted);
+    @apply my-2.5 text-theme-text-muted;
   }
 
   ul {
     @apply my-2.5 pl-6 list-disc;
 
     li {
-      @apply mb-2 last:mb-0;
-      color: var(--theme-text-muted);
+      @apply mb-2 last:mb-0 text-theme-text-muted;
 
       &::marker {
-        color: var(--theme-marker);
+        @apply text-theme-marker;
       }
     }
   }

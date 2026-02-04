@@ -2,21 +2,14 @@
  * Resume Theme Configuration
  *
  * Usage: Set the `theme` option in vite.config.ts
- * Example: theme: ThemeName.Ocean
+ * Example: theme: 'ocean'
+ *
+ * All colors use TailwindCSS v4 built-in color variables
  */
 
-export enum ThemeName {
-  Ocean = 'ocean',
-  Forest = 'forest',
-  Violet = 'violet',
-  Sunset = 'sunset',
-  Rose = 'rose',
-  Midnight = 'midnight',
-  Sky = 'sky',
-  Amber = 'amber',
-}
+export type Theme = 'ocean' | 'forest' | 'violet' | 'sunset' | 'rose' | 'midnight' | 'sky' | 'amber'
 
-export interface Theme {
+export interface ThemeConfig {
   name: string
   description: string
   colors: {
@@ -39,136 +32,136 @@ export interface Theme {
   }
 }
 
-export const themes: Record<ThemeName, Theme> = {
-  [ThemeName.Ocean]: {
+export const themes: Record<Theme, ThemeConfig> = {
+  ocean: {
     name: 'Ocean Blue',
     description: 'Classic deep blue, professional and stable',
     colors: {
-      primary: '#1b4255',
-      accent: '#ff000030',
-      text: '#333333',
-      textMuted: '#888888',
-      border: '#e8e8e8',
-      marker: '#bbbbbb',
-      bgPage: '#f2f2f2',
-      bgContent: '#ffffff',
+      primary: 'var(--color-cyan-800)',
+      accent: 'color-mix(in oklch, var(--color-red-500) 30%, transparent)',
+      text: 'var(--color-gray-700)',
+      textMuted: 'var(--color-gray-500)',
+      border: 'var(--color-gray-200)',
+      marker: 'var(--color-gray-400)',
+      bgPage: 'var(--color-gray-100)',
+      bgContent: 'var(--color-white)',
     }
   },
 
-  [ThemeName.Forest]: {
+  forest: {
     name: 'Forest Green',
     description: 'Natural and fresh green tones',
     colors: {
-      primary: '#2d5a45',
-      accent: '#4a907030',
-      text: '#333333',
-      textMuted: '#666666',
-      border: '#d8e8d8',
-      marker: '#88aa88',
-      bgPage: '#f5f8f5',
-      bgContent: '#ffffff',
+      primary: 'var(--color-emerald-700)',
+      accent: 'color-mix(in oklch, var(--color-emerald-500) 30%, transparent)',
+      text: 'var(--color-gray-700)',
+      textMuted: 'var(--color-gray-500)',
+      border: 'var(--color-emerald-100)',
+      marker: 'var(--color-emerald-400)',
+      bgPage: 'var(--color-emerald-50)',
+      bgContent: 'var(--color-white)',
     }
   },
 
-  [ThemeName.Violet]: {
+  violet: {
     name: 'Elegant Violet',
     description: 'Sophisticated and mysterious purple tones',
     colors: {
-      primary: '#5b4a7a',
-      accent: '#9b7bb830',
-      text: '#333333',
-      textMuted: '#777777',
-      border: '#e8e0f0',
-      marker: '#a090b0',
-      bgPage: '#f8f5fa',
-      bgContent: '#ffffff',
+      primary: 'var(--color-violet-700)',
+      accent: 'color-mix(in oklch, var(--color-violet-400) 30%, transparent)',
+      text: 'var(--color-gray-700)',
+      textMuted: 'var(--color-gray-500)',
+      border: 'var(--color-violet-100)',
+      marker: 'var(--color-violet-400)',
+      bgPage: 'var(--color-violet-50)',
+      bgContent: 'var(--color-white)',
     }
   },
 
-  [ThemeName.Sunset]: {
+  sunset: {
     name: 'Sunset Orange',
     description: 'Warm and vibrant orange tones',
     colors: {
-      primary: '#c45a2c',
-      accent: '#ff8c4230',
-      text: '#333333',
-      textMuted: '#777777',
-      border: '#f0e0d8',
-      marker: '#d09070',
-      bgPage: '#faf6f2',
-      bgContent: '#ffffff',
+      primary: 'var(--color-orange-600)',
+      accent: 'color-mix(in oklch, var(--color-orange-400) 30%, transparent)',
+      text: 'var(--color-gray-700)',
+      textMuted: 'var(--color-gray-500)',
+      border: 'var(--color-orange-100)',
+      marker: 'var(--color-orange-400)',
+      bgPage: 'var(--color-orange-50)',
+      bgContent: 'var(--color-white)',
     }
   },
 
-  [ThemeName.Rose]: {
+  rose: {
     name: 'Rose Red',
     description: 'Elegant and soft rose tones',
     colors: {
-      primary: '#a04060',
-      accent: '#e0708830',
-      text: '#333333',
-      textMuted: '#777777',
-      border: '#f0e0e8',
-      marker: '#c090a0',
-      bgPage: '#faf5f7',
-      bgContent: '#ffffff',
+      primary: 'var(--color-rose-600)',
+      accent: 'color-mix(in oklch, var(--color-rose-400) 30%, transparent)',
+      text: 'var(--color-gray-700)',
+      textMuted: 'var(--color-gray-500)',
+      border: 'var(--color-rose-100)',
+      marker: 'var(--color-rose-400)',
+      bgPage: 'var(--color-rose-50)',
+      bgContent: 'var(--color-white)',
     }
   },
 
-  [ThemeName.Midnight]: {
+  midnight: {
     name: 'Midnight Black',
     description: 'Calm and restrained dark tones',
     colors: {
-      primary: '#2c2c2c',
-      accent: '#60606030',
-      text: '#333333',
-      textMuted: '#666666',
-      border: '#d8d8d8',
-      marker: '#888888',
-      bgPage: '#f0f0f0',
-      bgContent: '#ffffff',
+      primary: 'var(--color-slate-800)',
+      accent: 'color-mix(in oklch, var(--color-slate-500) 30%, transparent)',
+      text: 'var(--color-gray-700)',
+      textMuted: 'var(--color-gray-500)',
+      border: 'var(--color-gray-300)',
+      marker: 'var(--color-gray-500)',
+      bgPage: 'var(--color-gray-100)',
+      bgContent: 'var(--color-white)',
     }
   },
 
-  [ThemeName.Sky]: {
+  sky: {
     name: 'Sky Blue',
     description: 'Bright and refreshing light blue tones',
     colors: {
-      primary: '#2878a8',
-      accent: '#5cb8e830',
-      text: '#333333',
-      textMuted: '#666666',
-      border: '#d8e8f0',
-      marker: '#88b0c8',
-      bgPage: '#f5f9fc',
-      bgContent: '#ffffff',
+      primary: 'var(--color-sky-600)',
+      accent: 'color-mix(in oklch, var(--color-sky-400) 30%, transparent)',
+      text: 'var(--color-gray-700)',
+      textMuted: 'var(--color-gray-500)',
+      border: 'var(--color-sky-100)',
+      marker: 'var(--color-sky-400)',
+      bgPage: 'var(--color-sky-50)',
+      bgContent: 'var(--color-white)',
     }
   },
 
-  [ThemeName.Amber]: {
+  amber: {
     name: 'Amber Gold',
     description: 'Elegant and luxurious golden tones',
     colors: {
-      primary: '#a07030',
-      accent: '#d4a04830',
-      text: '#333333',
-      textMuted: '#777777',
-      border: '#e8e0d0',
-      marker: '#c0a070',
-      bgPage: '#faf8f2',
-      bgContent: '#ffffff',
+      primary: 'var(--color-amber-600)',
+      accent: 'color-mix(in oklch, var(--color-amber-400) 30%, transparent)',
+      text: 'var(--color-gray-700)',
+      textMuted: 'var(--color-gray-500)',
+      border: 'var(--color-amber-100)',
+      marker: 'var(--color-amber-400)',
+      bgPage: 'var(--color-amber-50)',
+      bgContent: 'var(--color-white)',
     }
   },
 }
 
-export const defaultTheme = ThemeName.Ocean
+export const defaultTheme: Theme = 'ocean'
 
-export function getTheme(name: ThemeName): Theme {
-  return themes[name] || themes[defaultTheme]
+export function getTheme(theme: Theme) {
+  return themes[theme] || themes[defaultTheme]
 }
 
-export function generateThemeCSS(theme: Theme): string {
-  const { colors } = theme
+export function generateThemeCSS(themeConfig: ThemeConfig) {
+  const { colors } = themeConfig
   return `
 :root {
   --theme-primary: ${colors.primary};
@@ -182,6 +175,6 @@ export function generateThemeCSS(theme: Theme): string {
 }`.trim()
 }
 
-export function getThemeNames(): ThemeName[] {
-  return Object.values(ThemeName)
+export function getThemeNames() {
+  return Object.keys(themes)
 }

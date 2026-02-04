@@ -3,6 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "description": "A minimal Markdown-based resume generator that outputs both HTML and PDF.",
+  "keywords": [
+    "resume",
+    "generator",
+    "markdown",
+    "html",
+    "pdf"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
