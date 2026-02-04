@@ -66,6 +66,11 @@ export default function plugin(options: PluginOptions) {
     },
 
     async closeBundle() {
+      // Skip PDF generation in CI environments (Vercel, GitHub Actions, etc.)
+      if (process.env.CI || process.env.VERCEL) {
+        console.log('Skipping PDF generation in CI environment')
+        return
+      }
       await pdfBuilder({
         name: pdfName,
         margin: pdfMargin

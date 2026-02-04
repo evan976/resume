@@ -5,7 +5,7 @@ import markdownToResume from './core/plugin'
 import { ThemeName } from './core/themes'
 
 export default defineConfig({
-  base: './',
+  base: '/',
   plugins: [
     tailwindcss(),
     markdownToResume({
