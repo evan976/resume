@@ -4,14 +4,22 @@ import { createFilter } from '@rollup/pluginutils'
 import { minify as minifyHtml } from 'html-minifier-terser'
 import { createMarkdownIt, pdfBuilder, __dirname } from './index'
 import MarkdownIt from 'markdown-it'
+import { getTheme, generateThemeCSS, defaultTheme, ThemeName } from './themes'
 
-export default function plugin(options: {
+export interface PluginOptions {
   pdfName: string
   webTitle: string
   markdown: (md: MarkdownIt) => void
   pdfMargin: number | Record<string, any>
-}) {
-  const { pdfName, webTitle, markdown, pdfMargin } = options
+  /** Theme to apply. See ThemeName enum for available options. */
+  theme?: ThemeName
+}
+
+export default function plugin(options: PluginOptions) {
+  const { pdfName, webTitle, markdown, pdfMargin, theme = defaultTheme } = options
+
+  const themeConfig = getTheme(theme)
+  const themeCSS = generateThemeCSS(themeConfig)
 
   return {
     name: 'build',
@@ -21,7 +29,13 @@ export default function plugin(options: {
       const md = createMarkdownIt(markdown)
       const readme = fs.readFileSync(resolve(__dirname, '../src/resume.md')).toString()
 
-      return html.replace('#[title]', webTitle || pdfName || 'resume').replace('#[content]', md.render(readme))
+      // Inject theme CSS before </head>
+      const themeStyle = `<style id="theme-vars">${themeCSS}</style>`
+      const htmlWithTheme = html.replace('</head>', `${themeStyle}\n</head>`)
+
+      return htmlWithTheme
+        .replace('#[title]', webTitle || pdfName || 'resume')
+        .replace('#[content]', md.render(readme))
     },
 
     transform(val: any, id: unknown) {

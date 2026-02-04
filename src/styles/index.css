@@ -2,10 +2,6 @@
 
 @theme {
   --font-sans: '阿里巴巴普惠体 2 55 Regular', '微软雅黑', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  --color-heading: #1b4255;
-  --color-text-muted: #888;
-  --color-border: #e8e8e8;
-  --color-marker: #bbb;
   --width-a4: 210mm;
 }
 
@@ -15,11 +11,13 @@
 }
 
 body {
-  @apply font-sans text-base leading-relaxed bg-[#f2f2f2];
+  @apply font-sans text-base leading-relaxed;
+  background-color: var(--theme-bg-page);
 }
 
 h1, h2, h3, h4, h5, h6, b, strong, em {
-  @apply font-bold text-heading;
+  @apply font-bold;
+  color: var(--theme-primary);
 }
 
 h1 {
@@ -35,7 +33,8 @@ h3 {
 }
 
 a {
-  @apply no-underline text-heading;
+  @apply no-underline;
+  color: var(--theme-primary);
 }
 
 code {
@@ -44,29 +43,32 @@ code {
 
 /* Main container */
 .main {
-  @apply relative w-a4 mx-auto my-[50px] p-12 bg-white text-[#333] overflow-hidden shadow-[0_0_10px_5px_#fff];
+  @apply relative w-a4 mx-auto my-12 p-12 overflow-hidden shadow-[0_0_10px_5px_#fff];
+  background-color: var(--theme-bg-content);
+  color: var(--theme-text);
 }
 
 /* Basic info section */
 .basic-info {
-  @apply flex justify-between pb-[30px] border-b-[3px] border-dashed border-[#ff000030];
+  @apply flex justify-between pb-8 border-b-3 border-dashed;
+  border-color: var(--theme-accent);
 
   .left {
-    @apply mr-[15px] w-full text-[17px];
+    @apply mr-4 w-full text-base;
 
     .name {
-      @apply mb-[10px] font-normal;
+      @apply mb-2.5 font-normal;
     }
 
     .target {
-      @apply text-[20px];
+      @apply text-xl;
     }
 
     .list {
-      @apply flex flex-wrap mt-[15px] list-none;
+      @apply flex flex-wrap mt-4 list-none;
 
       li {
-        @apply min-w-[33.333%] h-9 leading-9;
+        @apply min-w-1/3 h-9 leading-9;
       }
     }
   }
@@ -83,19 +85,24 @@ code {
   }
 
   h3 {
-    @apply my-[30px_0_15px] border-b border-border;
-    margin: 30px 0 15px;
+    @apply mt-7 mb-4 mx-0;
   }
 
   p {
-    @apply my-[10px] text-text-muted;
+    @apply my-2.5;
+    color: var(--theme-text-muted);
   }
 
   ul {
-    @apply my-[10px] pl-[1.2em] list-disc;
+    @apply my-2.5 pl-6 list-disc;
 
     li {
-      @apply mb-2 text-text-muted marker:text-marker last:mb-0;
+      @apply mb-2 last:mb-0;
+      color: var(--theme-text-muted);
+
+      &::marker {
+        color: var(--theme-marker);
+      }
     }
   }
 }
@@ -111,7 +118,7 @@ code {
   }
 
   body {
-    @apply bg-white;
+    background-color: white;
     -webkit-print-color-adjust: exact;
     -moz-print-color-adjust: exact;
     -ms-print-color-adjust: exact;
