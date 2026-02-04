@@ -1,6 +1,8 @@
-# Resume
+# Vitae
 
 A minimal Markdown-based resume generator that outputs both HTML and PDF.
+
+> *Vitae* - from Latin "Curriculum Vitae", also a nod to Vite.
 
 ## Features
 
