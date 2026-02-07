@@ -48,6 +48,21 @@ Generates HTML and PDF in the `dist/` folder:
 pnpm build
 ```
 
+### PDF Executable Path
+
+Puppeteer needs a Chrome/Chromium executable. Provide one of:
+
+- `PUPPETEER_EXECUTABLE_PATH` environment variable
+- `puppeteerExecutablePath` option in `vite.config.ts`
+
+If neither is provided, the build tries common paths for your OS and throws a clear error if none are found.
+
+Examples:
+
+- macOS: `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome`
+- Windows: `C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe`
+- Linux: `/usr/bin/google-chrome`
+
 ## Usage
 
 1. Edit your resume in `src/resume.md`
@@ -82,7 +97,14 @@ To change the theme, update the `theme` option in `vite.config.ts`:
 
 ```typescript
 // Use forest green theme
-theme: 'forest'
+export default defineConfig({
+  plugins: [
+    markdownToResume({
+      // ...
+      theme: 'forest',
+    }),
+  ],
+})
 ```
 
 ## Project Structure

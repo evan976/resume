@@ -4,13 +4,15 @@ import { createFilter } from '@rollup/pluginutils'
 import { minify as minifyHtml } from 'html-minifier-terser'
 import { createMarkdownIt, pdfBuilder, __dirname } from './index'
 import MarkdownIt from 'markdown-it'
+import type { OutputAsset, OutputBundle } from 'rollup'
 import { Theme } from './themes'
+import type { PdfMarginInput } from './index'
 
 export interface PluginOptions {
   pdfName: string
   webTitle: string
   markdown: (md: MarkdownIt) => void
-  pdfMargin: number | Record<string, any>
+  pdfMargin: PdfMarginInput
   /** Theme to apply */
   theme?: Theme
 }
@@ -39,7 +41,7 @@ export default function plugin(options: PluginOptions) {
         .replace('#[content]', md.render(readme))
     },
 
-    transform(val: any, id: unknown) {
+    transform(val: string, id: string) {
       const filter = createFilter(['**/*.md'])
       if (!filter(id)) return null
 
@@ -48,11 +50,15 @@ export default function plugin(options: PluginOptions) {
       };
     },
 
-    async generateBundle(_: any, bundle: Record<string, any>) {
+    async generateBundle(_: unknown, bundle: OutputBundle) {
       for (const info of Object.values(bundle)) {
         const filter = createFilter(['**/*.html'])
-        if (info.type === 'asset' && filter(info.fileName) && typeof info.source === 'string') {
-          info.source = await minifyHtml(info.source, {
+        if (info.type === 'asset' && filter(info.fileName)) {
+          const asset = info as OutputAsset
+          const source = typeof asset.source === 'string'
+            ? asset.source
+            : Buffer.from(asset.source).toString('utf-8')
+          asset.source = await minifyHtml(source, {
             collapseWhitespace: true,
             keepClosingSlash: true,
             removeComments: true,
