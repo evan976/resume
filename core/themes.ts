@@ -9,27 +9,40 @@
 
 export type Theme = 'ocean' | 'forest' | 'violet' | 'sunset' | 'rose' | 'midnight' | 'sky' | 'amber'
 
+export interface ThemeColors {
+  /** Primary color - headings, links, etc. */
+  primary: string
+  /** Accent color - decorative lines, etc. */
+  accent: string
+  /** Body text color */
+  text: string
+  /** Secondary text color - descriptions, lists, etc. */
+  textMuted: string
+  /** Border color */
+  border: string
+  /** List marker color */
+  marker: string
+  /** Page background color */
+  bgPage: string
+  /** Content area background color */
+  bgContent: string
+}
+
 export interface ThemeConfig {
   name: string
   description: string
-  colors: {
-    /** Primary color - headings, links, etc. */
-    primary: string
-    /** Accent color - decorative lines, etc. */
-    accent: string
-    /** Body text color */
-    text: string
-    /** Secondary text color - descriptions, lists, etc. */
-    textMuted: string
-    /** Border color */
-    border: string
-    /** List marker color */
-    marker: string
-    /** Page background color */
-    bgPage: string
-    /** Content area background color */
-    bgContent: string
-  }
+  colors: ThemeColors
+  /** Dark mode colors - if not provided, auto-generated */
+  darkColors?: ThemeColors
+}
+
+/** Shared dark mode base colors */
+const darkBase = {
+  text: 'var(--color-neutral-100)',
+  textMuted: 'var(--color-neutral-400)',
+  border: 'var(--color-neutral-700)',
+  bgPage: 'var(--color-black)',
+  bgContent: 'var(--color-neutral-900)',
 }
 
 export const themes: Record<Theme, ThemeConfig> = {
@@ -45,7 +58,13 @@ export const themes: Record<Theme, ThemeConfig> = {
       marker: 'var(--color-gray-400)',
       bgPage: 'var(--color-gray-100)',
       bgContent: 'var(--color-white)',
-    }
+    },
+    darkColors: {
+      primary: 'var(--color-cyan-400)',
+      accent: 'color-mix(in oklch, var(--color-red-400) 30%, transparent)',
+      marker: 'var(--color-cyan-600)',
+      ...darkBase,
+    },
   },
 
   forest: {
@@ -60,7 +79,13 @@ export const themes: Record<Theme, ThemeConfig> = {
       marker: 'var(--color-emerald-400)',
       bgPage: 'var(--color-emerald-50)',
       bgContent: 'var(--color-white)',
-    }
+    },
+    darkColors: {
+      primary: 'var(--color-emerald-400)',
+      accent: 'color-mix(in oklch, var(--color-emerald-400) 30%, transparent)',
+      marker: 'var(--color-emerald-600)',
+      ...darkBase,
+    },
   },
 
   violet: {
@@ -75,7 +100,13 @@ export const themes: Record<Theme, ThemeConfig> = {
       marker: 'var(--color-violet-400)',
       bgPage: 'var(--color-violet-50)',
       bgContent: 'var(--color-white)',
-    }
+    },
+    darkColors: {
+      primary: 'var(--color-violet-400)',
+      accent: 'color-mix(in oklch, var(--color-violet-400) 30%, transparent)',
+      marker: 'var(--color-violet-600)',
+      ...darkBase,
+    },
   },
 
   sunset: {
@@ -90,7 +121,13 @@ export const themes: Record<Theme, ThemeConfig> = {
       marker: 'var(--color-orange-400)',
       bgPage: 'var(--color-orange-50)',
       bgContent: 'var(--color-white)',
-    }
+    },
+    darkColors: {
+      primary: 'var(--color-orange-400)',
+      accent: 'color-mix(in oklch, var(--color-orange-400) 30%, transparent)',
+      marker: 'var(--color-orange-600)',
+      ...darkBase,
+    },
   },
 
   rose: {
@@ -105,7 +142,13 @@ export const themes: Record<Theme, ThemeConfig> = {
       marker: 'var(--color-rose-400)',
       bgPage: 'var(--color-rose-50)',
       bgContent: 'var(--color-white)',
-    }
+    },
+    darkColors: {
+      primary: 'var(--color-rose-400)',
+      accent: 'color-mix(in oklch, var(--color-rose-400) 30%, transparent)',
+      marker: 'var(--color-rose-600)',
+      ...darkBase,
+    },
   },
 
   midnight: {
@@ -120,7 +163,13 @@ export const themes: Record<Theme, ThemeConfig> = {
       marker: 'var(--color-gray-500)',
       bgPage: 'var(--color-gray-100)',
       bgContent: 'var(--color-white)',
-    }
+    },
+    darkColors: {
+      primary: 'var(--color-slate-300)',
+      accent: 'color-mix(in oklch, var(--color-slate-400) 30%, transparent)',
+      marker: 'var(--color-slate-500)',
+      ...darkBase,
+    },
   },
 
   sky: {
@@ -135,7 +184,13 @@ export const themes: Record<Theme, ThemeConfig> = {
       marker: 'var(--color-sky-400)',
       bgPage: 'var(--color-sky-50)',
       bgContent: 'var(--color-white)',
-    }
+    },
+    darkColors: {
+      primary: 'var(--color-sky-400)',
+      accent: 'color-mix(in oklch, var(--color-sky-400) 30%, transparent)',
+      marker: 'var(--color-sky-600)',
+      ...darkBase,
+    },
   },
 
   amber: {
@@ -150,7 +205,13 @@ export const themes: Record<Theme, ThemeConfig> = {
       marker: 'var(--color-amber-400)',
       bgPage: 'var(--color-amber-50)',
       bgContent: 'var(--color-white)',
-    }
+    },
+    darkColors: {
+      primary: 'var(--color-amber-400)',
+      accent: 'color-mix(in oklch, var(--color-amber-400) 30%, transparent)',
+      marker: 'var(--color-amber-600)',
+      ...darkBase,
+    },
   },
 }
 
@@ -160,18 +221,49 @@ export function getTheme(theme: Theme) {
   return themes[theme] || themes[defaultTheme]
 }
 
-export function generateThemeCSS(themeConfig: ThemeConfig) {
-  const { colors } = themeConfig
-  return `
-:root {
-  --theme-primary: ${colors.primary};
+/** Generate dark mode colors from light mode colors (fallback) */
+export function generateDarkColors(colors: ThemeColors): ThemeColors {
+  const primary = colors.primary.replace(/-(\d)00\)/, (_, n) => `-${Math.max(3, 9 - parseInt(n))}00)`)
+
+  return {
+    primary,
+    accent: colors.accent,
+    marker: 'var(--color-neutral-500)',
+    ...darkBase,
+  }
+}
+
+function colorsToCSS(colors: ThemeColors) {
+  return `--theme-primary: ${colors.primary};
   --theme-accent: ${colors.accent};
   --theme-text: ${colors.text};
   --theme-text-muted: ${colors.textMuted};
   --theme-border: ${colors.border};
   --theme-marker: ${colors.marker};
   --theme-bg-page: ${colors.bgPage};
-  --theme-bg-content: ${colors.bgContent};
+  --theme-bg-content: ${colors.bgContent};`
+}
+
+export function generateThemeCSS(themeConfig: ThemeConfig) {
+  const { colors, darkColors } = themeConfig
+  const dark = darkColors || generateDarkColors(colors)
+
+  return `
+/* Light mode (default) */
+:root {
+  ${colorsToCSS(colors)}
+}
+
+/* Dark mode - system preference */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    ${colorsToCSS(dark)}
+  }
+}
+
+/* Dark mode - manual override */
+:root[data-theme="dark"] {
+  ${colorsToCSS(dark)}
 }`.trim()
 }
 

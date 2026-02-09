@@ -131,6 +131,50 @@ code {
   }
 }
 
+/* Theme toggle button */
+.theme-toggle {
+  @apply fixed top-4 right-4 p-2 rounded-full bg-theme-bg-content border border-theme-border cursor-pointer transition-all duration-200 z-50;
+  @apply hover:bg-theme-bg-page;
+
+  .icon-sun {
+    @apply block text-theme-primary;
+  }
+
+  .icon-moon {
+    @apply hidden text-theme-primary;
+  }
+}
+
+/* Dark mode icon visibility */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle {
+    .icon-sun {
+      @apply hidden;
+    }
+    .icon-moon {
+      @apply block;
+    }
+  }
+}
+
+:root[data-theme="dark"] .theme-toggle {
+  .icon-sun {
+    @apply hidden;
+  }
+  .icon-moon {
+    @apply block;
+  }
+}
+
+:root[data-theme="light"] .theme-toggle {
+  .icon-sun {
+    @apply block;
+  }
+  .icon-moon {
+    @apply hidden;
+  }
+}
+
 /* Print styles */
 @media print {
   @page {
@@ -153,7 +197,8 @@ code {
     @apply mx-auto shadow-none;
   }
 
-  .main-footer {
+  .main-footer,
+  .theme-toggle {
     @apply hidden;
   }
 }
